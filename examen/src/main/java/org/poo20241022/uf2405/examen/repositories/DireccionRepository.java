@@ -14,5 +14,12 @@ public interface DireccionRepository extends JpaRepository<Direccion,Integer> {
 	@Query("select d.direccion from Departamento d where d.id=:id")
 	Optional<Direccion> findByIdDepartamento(@Param("id") Integer idDepartamento);
 
+
 	
+	@Query("select d from Direccion d where d.pais.id=:cosa")
+	List<Direccion> findAllByCodigoPais(@Param("cosa") String idPais);
+
+
+	
+	List<Direccion> findAllByPais_Region_Nombre(@Param("nombre") String regionNombre);
 }

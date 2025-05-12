@@ -84,7 +84,7 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 		log.info("[eliminarDireccion]");
 		log.debug("[idDireccion: "+idDireccion+"]");
 		
-			try {
+		try {
 			repository.deleteById(idDireccion);
 		}catch(Exception e) {
 			log.error("Exception", e);
@@ -100,7 +100,7 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 		log.info("[listDireccionesByNombreRegion]");
 		log.debug("[nombreRegion: "+nombreRegion+"]");
 		
-			try {
+		try {
 			return repository.findAllByPais_Region_Nombre(nombreRegion);
 		}catch(Exception e) {
 			log.error("Exception", e);
@@ -109,10 +109,41 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 	}
 
 
-	
+	@Override
+	public List<Direccion> listDireccionesByCodigoPais(String idPais) throws ServicioException {
+		log.info("[listDireccionesByCodigoPais]");
+		log.debug("[idPais: "+idPais+"]");
+		
+		try {
+//			return repository.findAllByPais_Region_Nombre(idPais);
+			return repository.findAllByCodigoPais(idPais);
+		}catch(Exception e) {
+			log.error("Exception", e);
+			throw new ServicioException(CodeError.ERROR_GENERAL,e);
+		}
+	}
 
-	
-	
-	
+
+	@Override
+	public Direccion conseguirDireccionByDepartamentoId(Integer idDepartamento) throws ServicioException {
+		log.info("[conseguirDireccionByDepartamentoId]");
+		log.debug("[idDepartamento: "+idDepartamento+"]");
+		
+		Direccion direccion;
+		
+		try {
+			Optional<Direccion> direccionOp= repository.findByIdDepartamento(idDepartamento);
+			if(!direccionOp.isPresent()) throw new ServicioException(CodeError.DIRECCION_NOT_FOUND);
+			direccion = direccionOp.get(); 
+		}catch(ServicioException se) {
+			log.error("ServicioException", se);
+			throw se;
+		}catch(Exception e) {
+			log.error("Exception", e);
+			throw new ServicioException(CodeError.ERROR_GENERAL,e);
+		}
+		return direccion;
+	}
+
 
 }
