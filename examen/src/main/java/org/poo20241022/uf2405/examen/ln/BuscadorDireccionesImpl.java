@@ -1,5 +1,6 @@
 package org.poo20241022.uf2405.examen.ln;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -21,22 +22,7 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 	DireccionRepository repository;
 	
 	
-	@Override
-	public List<Direccion> listDirecciones() throws ServicioException{
-		log.info("[listDirecciones]");
-		
-		List<Direccion> direcciones;
-		
-		try {
-			direcciones= repository.findAll();
-			
-		}catch(Exception e) {
-			log.error("Exception", e);
-			throw new ServicioException(CodeError.ERROR_GENERAL,e);
-		}
-		return direcciones;
-		
-	}
+
 	
 	
 	@Override
@@ -109,10 +95,73 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 	}
 
 
-	
+	@Override
+	public List<Direccion> listDireccionesByCodigoPais(String codigoPais) throws ServicioException {
+		log.info("[listDireccionesByCodigoPais]");
+		log.debug("[codigPais: " + codigoPais + "]");
+		List<Direccion> direcciones;
+		try {
+			direcciones = repository.findAllByCodigoPais(codigoPais); 
+	        if (direcciones == null || direcciones.isEmpty()) {
+	            throw new ServicioException(CodeError.DIRECCION_NOT_FOUND);
+	        }
+		} catch (Exception e) {
+			log.error("Exception", e);
+			throw new ServicioException(CodeError.ERROR_GENERAL, e);
+		}	return direcciones;
+		
+	}
 
-	
-	
-	
+	@Override
+	public Direccion conseguirDireccionByDepartamentoId(Integer Id) throws ServicioException {
+		log.info("[listDireccionesByDepartamentoId]");
+		log.debug("[deptoId: " + Id + "]");
+		Direccion direccion;
+		try {
+			Optional<Direccion> direccionOp = repository.findByIdDepartamento(Id);
+			if (!direccionOp.isPresent()) {
+				throw new ServicioException(CodeError.DIRECCION_NOT_FOUND);
+			}
+			direccion = direccionOp.get();
+		} catch (ServicioException se) {
+			log.error("ServicioException", se);
+			throw se;
+		} catch (Exception e) {
+			log.error("Exception", e);
+			throw new ServicioException(CodeError.ERROR_GENERAL, e);
+		}
+		return direccion;
 
+	}
+
+	@Override
+	public List<Direccion> listDirecciones() throws ServicioException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
+//	@Override
+//	public List<Direccion> listDirecciones() throws ServicioException {
+//			log.info("[listDirecciones]");
+//			log.debug("[id: " + id + "]");
+//			List<Direccion> direcciones;
+//			try {
+//				direcciones = repository.findAll(); 
+//		        if (direcciones == null || direcciones.isEmpty()) {
+//		            throw new ServicioException(CodeError.DIRECCION_NOT_FOUND);
+//		        }
+//			} catch (Exception e) {
+//				log.error("Exception", e);
+//				throw new ServicioException(CodeError.ERROR_GENERAL, e);
+//			}	return direcciones;
+//			
+//	}
+//	}
+	
+	
+	
+
+	
+
+	
+

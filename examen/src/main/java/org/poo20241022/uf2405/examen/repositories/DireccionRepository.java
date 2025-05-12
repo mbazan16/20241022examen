@@ -11,8 +11,17 @@ import org.springframework.data.repository.query.Param;
 
 public interface DireccionRepository extends JpaRepository<Direccion,Integer> {
 	
+			
+	@Query("select d from Direccion d where d.pais.region.nombre = :nombreRegion")
+    List<Direccion> findAllByPais_Region_Nombre(@Param("nombreRegion") String nombreRegion);
+	
+	
 	@Query("select d.direccion from Departamento d where d.id=:id")
 	Optional<Direccion> findByIdDepartamento(@Param("id") Integer idDepartamento);
 
+	
+
+    @Query("select d from Direccion d where d.pais.id = :id")
+    List<Direccion> findAllByCodigoPais(@Param("id") String codigoPais);
 	
 }

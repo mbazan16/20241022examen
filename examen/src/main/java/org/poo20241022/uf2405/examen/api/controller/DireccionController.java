@@ -60,19 +60,21 @@ public class DireccionController {
 		servicio.eliminarDireccion(id);
 		
 		return ResponseEntity.ok("Se ha eliminado");
-		
 	}
 	
 	@GetMapping("/region/{nombre}")
 	public List<Direccion> listByRegion(@PathVariable("nombre")String nombreRegion) throws ServicioException{
 		return servicio.listDireccionesByNombreRegion(nombreRegion);
-		
 	}
 	
 	@GetMapping("/pais/{id}")
 	public List<Direccion> listByDireccion(@PathVariable("id") String codPais) throws ServicioException{
 		return servicio.listDireccionesByCodigoPais(codPais);
-		
+	}
+	
+	@GetMapping("/departamento/{id}")
+	public Direccion conseguirDireccionByDepartamentoId(@PathVariable Integer id) throws ServicioException {
+		return servicio.conseguirDireccionByDepartamentoId(id);
 	}
 	
 	

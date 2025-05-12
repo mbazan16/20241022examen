@@ -26,8 +26,7 @@ public class Pais {
 
     @ManyToOne
     @JoinColumn(name = "REGION_ID")
-    private Region region;
-    
+    private Region region; 
     
 
 	public Pais() {
