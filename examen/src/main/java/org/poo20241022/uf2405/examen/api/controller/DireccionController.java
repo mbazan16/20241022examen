@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 @RestController
 @RequestMapping("/api/direcciones")
 public class DireccionController {
@@ -74,6 +76,12 @@ public class DireccionController {
 		return servicio.listDireccionesByCodigoPais(codPais);
 		
 	}
+	
+	@GetMapping("/departamento/{id}")
+	public Direccion findByDepartamento(@PathVariable("id") Integer id) throws ServicioException {
+	    return servicio.conseguirDireccionByDepartamentoId(id);
+	}
+
 	
 	
 	
