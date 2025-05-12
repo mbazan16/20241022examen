@@ -22,7 +22,8 @@ public class DireccionController {
 	
 	@Autowired
 	BuscadorDirecciones servicio;
-	
+
+
 	
 	@GetMapping
 	public List<Direccion> list() throws ServicioException{
@@ -74,7 +75,12 @@ public class DireccionController {
 		return servicio.listDireccionesByCodigoPais(codPais);
 		
 	}
-	
+	// /api/direcciones/departamento/{id}
+	@GetMapping("/departamento/{id}")
+	public Direccion findByDepartamento(@PathVariable("id") Integer id) throws ServicioException{
+		return servicio.conseguirDireccionByDepartamentoId(id);
+
+	}
 	
 	
 }

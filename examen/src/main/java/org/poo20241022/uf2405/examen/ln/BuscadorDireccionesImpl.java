@@ -18,7 +18,9 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 	Logger log = LoggerFactory.getLogger(BuscadorDireccionesImpl.class);
 	
 	@Autowired
-	DireccionRepository repository;
+	private DireccionRepository repository;
+
+
 	
 	
 	@Override
@@ -29,7 +31,7 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 		
 		try {
 			direcciones= repository.findAll();
-			
+
 		}catch(Exception e) {
 			log.error("Exception", e);
 			throw new ServicioException(CodeError.ERROR_GENERAL,e);
@@ -45,6 +47,11 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 		log.debug("[idDireccion: "+idDireccion+"]");
 		
 		Direccion direccion;
+
+		if (idDireccion==null) {
+			log.error("ID de direccion nulo");
+			throw new ServicioException(CodeError.DIRECCION_NOT_FOUND);
+		}
 		
 		try {
 			Optional<Direccion> direccionOp= repository.findById(idDireccion);
@@ -108,11 +115,62 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 		}
 	}
 
+	@Override
+	public Direccion conseguirDireccionByDepartamentoId(Integer idDepartamento) throws ServicioException {
+		log.info("[conseguirDireccionByDepartamentoId]");
+		log.debug("[idDepartamento: "+idDepartamento+"]");
 
-	
+		Direccion direccion;
 
-	
-	
-	
+		try {
+			Optional<Direccion> direccionOp= repository.findByIdDepartamento(idDepartamento);
+			if(!direccionOp.isPresent()) throw new ServicioException(CodeError.DIRECCION_NOT_FOUND);
+			direccion= direccionOp.get();
+		}catch(ServicioException se) {
+			log.error("ServicioException", se);
+			throw se;
+		}catch(Exception e) {
+			log.error("Exception", e);
+			throw new ServicioException(CodeError.ERROR_GENERAL,e);
+		}
+		return direccion;
+	}
+
+	@Override
+	public List<Direccion> listDireccionesByCodigoPais(String codPais) throws ServicioException {
+		log.info("[listDireccionesByCodigoPais]");
+		log.debug("[codPais: "+codPais+"]");
+
+			try {
+			return repository.findAllByCodigoPais(codPais);
+		}catch(Exception e) {
+			log.error("Exception", e);
+			throw new ServicioException(CodeError.ERROR_GENERAL,e);
+		}
+	}
+
+
+	@Override
+	public Direccion findByIdDepartamento(Integer idDepartamento) throws ServicioException {
+		log.info("[findByIdDepartamento]");
+		log.debug("[idDepartamento: "+idDepartamento+"]");
+
+		Direccion direccion;
+
+		try {
+			Optional<Direccion> direccionOp= repository.findByIdDepartamento(idDepartamento);
+			if(!direccionOp.isPresent()) throw new ServicioException(CodeError.DIRECCION_NOT_FOUND);
+			direccion= direccionOp.get();
+		}catch(ServicioException se) {
+			log.error("ServicioException", se);
+			throw se;
+		}catch(Exception e) {
+			log.error("Exception", e);
+			throw new ServicioException(CodeError.ERROR_GENERAL,e);
+		}
+		return direccion;
+	}
+
+
 
 }
