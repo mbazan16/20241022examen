@@ -108,11 +108,35 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 		}
 	}
 
+	@Override
+	public List<Direccion> listDireccionesByCodigoPais(String codigoPais) throws ServicioException {
+		
+			try {
+			return repository.findAllByCodigoPais(codigoPais);
+		}catch(Exception e) {
+			log.error("Exception", e);
+			throw new ServicioException(CodeError.ERROR_GENERAL,e);
+		}
+	}
 
-	
 
-	
-	
-	
+	@Override
+	public Direccion conseguirDireccionByDepartamentoId(Integer idDepartamento) throws ServicioException {
+	    log.info("[conseguirDireccionByDepartamentoId]");
+	    log.debug("[idDepartamento: " + idDepartamento + "]");
+	    
+	    try {
+	        Optional<Direccion> direccionOp = repository.findByIdDepartamento(idDepartamento);
+	        if (!direccionOp.isPresent()) {
+	            log.error("No se encontró dirección para el departamento con ID: " + idDepartamento);
+	            throw new ServicioException(CodeError.DIRECCION_NOT_FOUND);  
+	        }
+	        
+	        return direccionOp.get();  
+	    } catch (Exception e) {
+	        log.error("Error al obtener la dirección por ID de departamento", e);
+	        throw new ServicioException(CodeError.DIRECCION_NOT_FOUND, e);  
+	    }
+	}
 
 }

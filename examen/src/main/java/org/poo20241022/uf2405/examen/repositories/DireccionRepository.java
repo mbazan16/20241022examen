@@ -8,11 +8,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+public interface DireccionRepository extends JpaRepository<Direccion, Integer> {
 
-public interface DireccionRepository extends JpaRepository<Direccion,Integer> {
-	
-	@Query("select d.direccion from Departamento d where d.id=:id")
-	Optional<Direccion> findByIdDepartamento(@Param("id") Integer idDepartamento);
 
-	
+    @Query("select d.direccion from Departamento d where d.id=:id")
+    Optional<Direccion> findByIdDepartamento(@Param("id") Integer idDepartamento);
+
+    @Query("select d from Direccion d where d.pais.id = :codigoPais")
+    List<Direccion> findAllByCodigoPais(@Param("codigoPais") String codigoPais);
+
+    List<Direccion> findAllByPais_Region_Nombre(String string);
+
+
 }

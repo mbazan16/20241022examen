@@ -68,13 +68,17 @@ public class DireccionController {
 		return servicio.listDireccionesByNombreRegion(nombreRegion);
 		
 	}
+
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/pais/{id}")
-	public List<Direccion> listByDireccion(@PathVariable("id") String codPais) throws ServicioException{
-		return servicio.listDireccionesByCodigoPais(codPais);
-		
+	public List<Direccion> listByDireccion(@PathVariable("id") String codPais) throws ServicioException {
+	    return (List<Direccion>) servicio.listDireccionesByCodigoPais(codPais);
 	}
+
 	
-	
-	
+	@GetMapping("/departamento/{id}")
+	public Direccion findByDepartamento(@PathVariable("id") Integer id) throws ServicioException {
+	    return servicio.conseguirDireccionByDepartamentoId(id);
+	}	
 }
