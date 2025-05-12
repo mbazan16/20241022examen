@@ -13,106 +13,126 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BuscadorDireccionesImpl implements BuscadorDirecciones{
-	
+public class BuscadorDireccionesImpl implements BuscadorDirecciones {
+
 	Logger log = LoggerFactory.getLogger(BuscadorDireccionesImpl.class);
-	
+
 	@Autowired
 	DireccionRepository repository;
-	
-	
+
 	@Override
-	public List<Direccion> listDirecciones() throws ServicioException{
+	public List<Direccion> listDirecciones() throws ServicioException {
 		log.info("[listDirecciones]");
-		
+
 		List<Direccion> direcciones;
-		
+
 		try {
-			direcciones= repository.findAll();
-			
-		}catch(Exception e) {
+			direcciones = repository.findAll();
+
+		} catch (Exception e) {
 			log.error("Exception", e);
-			throw new ServicioException(CodeError.ERROR_GENERAL,e);
+			throw new ServicioException(CodeError.ERROR_GENERAL, e);
 		}
 		return direcciones;
-		
+
 	}
-	
-	
+
 	@Override
-	public Direccion conseguirDireccion(Integer idDireccion) throws ServicioException{
+	public Direccion conseguirDireccion(Integer idDireccion) throws ServicioException {
 		log.info("[conseguirDireccion]");
-		log.debug("[idDireccion: "+idDireccion+"]");
-		
+		log.debug("[idDireccion: " + idDireccion + "]");
+
 		Direccion direccion;
-		
+
 		try {
-			Optional<Direccion> direccionOp= repository.findById(idDireccion);
-			if(!direccionOp.isPresent()) throw new ServicioException(CodeError.DIRECCION_NOT_FOUND);
-			direccion= direccionOp.get(); 
-		}catch(ServicioException se) {
+			Optional<Direccion> direccionOp = repository.findById(idDireccion);
+			if (!direccionOp.isPresent())
+				throw new ServicioException(CodeError.DIRECCION_NOT_FOUND);
+			direccion = direccionOp.get();
+		} catch (ServicioException se) {
 			log.error("ServicioException", se);
 			throw se;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			log.error("Exception", e);
-			throw new ServicioException(CodeError.ERROR_GENERAL,e);
+			throw new ServicioException(CodeError.ERROR_GENERAL, e);
 		}
 		return direccion;
-		
+
 	}
-	
+
 	@Override
-	public Direccion grabarDireccion(Direccion Direccion) throws ServicioException{
+	public Direccion grabarDireccion(Direccion Direccion) throws ServicioException {
 		log.info("[grabarDireccion]");
-		log.debug("[Direccion: "+Direccion.toString()+"]");
+		log.debug("[Direccion: " + Direccion.toString() + "]");
 		Direccion direccion;
-		
-		try{
-			direccion=repository.save(Direccion);
-			
-		}catch(Exception e) {
+
+		try {
+			direccion = repository.save(Direccion);
+
+		} catch (Exception e) {
 			log.error("Exception", e);
-			throw new ServicioException(CodeError.ERROR_GENERAL,e);
+			throw new ServicioException(CodeError.ERROR_GENERAL, e);
 		}
 		return direccion;
-		
 	}
-	
-	
+
 	@Override
-	public void eliminarDireccion(Integer idDireccion) throws ServicioException{
+	public void eliminarDireccion(Integer idDireccion) throws ServicioException {
 		log.info("[eliminarDireccion]");
-		log.debug("[idDireccion: "+idDireccion+"]");
-		
-			try {
+		log.debug("[idDireccion: " + idDireccion + "]");
+
+		try {
 			repository.deleteById(idDireccion);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			log.error("Exception", e);
-			throw new ServicioException(CodeError.ERROR_GENERAL,e);
+			throw new ServicioException(CodeError.ERROR_GENERAL, e);
 		}
-		
+
 	}
-	
-	
 
 	@Override
 	public List<Direccion> listDireccionesByNombreRegion(String nombreRegion) throws ServicioException {
 		log.info("[listDireccionesByNombreRegion]");
-		log.debug("[nombreRegion: "+nombreRegion+"]");
-		
-			try {
+		log.debug("[nombreRegion: " + nombreRegion + "]");
+
+		try {
 			return repository.findAllByPais_Region_Nombre(nombreRegion);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			log.error("Exception", e);
-			throw new ServicioException(CodeError.ERROR_GENERAL,e);
+			throw new ServicioException(CodeError.ERROR_GENERAL, e);
 		}
 	}
 
+	public List<Direccion> listDireccionesByCodigoPais(String codPais) throws ServicioException {
+		log.info("[listDireccionesByCodigoPais]");
+		log.debug("[codPais: " + codPais + "]");
 
-	
+		try {
+			return repository.findAllByCodigoPais(codPais);
+		} catch (Exception e) {
+			log.error("Exception", e);
+			throw new ServicioException(CodeError.ERROR_GENERAL, e);
+		}
+	}
 
-	
-	
-	
+	public Direccion conseguirDireccionByDepartamentoId(Integer idDepartamento) throws ServicioException {
+		log.info("[conseguirDireccionByDepartamentoId]");
+		log.debug("[idDepartamento: " + idDepartamento + "]");
 
+		Direccion direccion;
+
+		try {
+			Optional<Direccion> direccionOp = repository.findByIdDepartamento(idDepartamento);
+			if (!direccionOp.isPresent())
+				throw new ServicioException(CodeError.DIRECCION_NOT_FOUND);
+			direccion = direccionOp.get();
+		} catch (ServicioException se) {
+			log.error("ServicioException", se);
+			throw se;
+		} catch (Exception e) {
+			log.error("Exception", e);
+			throw new ServicioException(CodeError.ERROR_GENERAL, e);
+		}
+		return direccion;
+	}
 }

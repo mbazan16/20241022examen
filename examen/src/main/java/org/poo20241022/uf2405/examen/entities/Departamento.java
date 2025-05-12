@@ -10,17 +10,17 @@ import jakarta.persistence.Table;
 @Entity
 //@Data
 //@NoArgsConstructor
-@Table(name="DEPARTMENTS")
+@Table(name = "DEPARTMENTS")
 public class Departamento {
-	
-	private @Id @Column(name="DEPARTMENT_ID")
-	Integer id;
-	@Column(name="DEPARTMENT_NAME") 
+
+	private @Id @Column(name = "DEPARTMENT_ID") Integer id;
+	@Column(name = "DEPARTMENT_NAME")
 	private String nombre;
-	@Column(name="MANAGER_ID") private String idGestor;
-	
+	@Column(name = "MANAGER_ID")
+	private String idGestor;
+
 	@ManyToOne
-	@JoinColumn(name="LOCATION_ID")
+	@JoinColumn(name = "LOCATION_ID")
 	private Direccion direccion;
 
 	public Departamento() {
@@ -64,7 +64,5 @@ public class Departamento {
 		return "Departamento [id=" + id + ", nombre=" + nombre + ", idGestor=" + idGestor + ", direccion=" + direccion
 				+ "]";
 	}
-	
-	
 
 }

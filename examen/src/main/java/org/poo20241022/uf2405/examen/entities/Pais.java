@@ -1,7 +1,5 @@
 package org.poo20241022.uf2405.examen.entities;
 
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -18,17 +16,15 @@ import jakarta.persistence.Table;
 @Table(name = "COUNTRIES")
 public class Pais {
 
-    @Id
-    @Column(name="COUNTRY_ID")
-    private String id;
-    @Column(name="COUNTRY_NAME")
-    private String nombre;
+	@Id
+	@Column(name = "COUNTRY_ID")
+	private String id;
+	@Column(name = "COUNTRY_NAME")
+	private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "REGION_ID")
-    private Region region;
-    
-    
+	@ManyToOne
+	@JoinColumn(name = "REGION_ID")
+	private Region region;
 
 	public Pais() {
 		super();
@@ -62,7 +58,5 @@ public class Pais {
 	public String toString() {
 		return "Pais [id=" + id + ", nombre=" + nombre + ", region=" + region + "]";
 	}
-    
-    
-    
+
 }

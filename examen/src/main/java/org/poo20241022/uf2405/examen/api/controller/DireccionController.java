@@ -75,6 +75,12 @@ public class DireccionController {
 		
 	}
 	
+	@GetMapping("/departamento/{id}")
+	public Direccion conseguirDireccionByDepartamentoId(@PathVariable("id")Integer departamentoID) throws ServicioException {
+		return servicio.conseguirDireccionByDepartamentoId(departamentoID);
+	}
+	
+	
 	
 	
 }
