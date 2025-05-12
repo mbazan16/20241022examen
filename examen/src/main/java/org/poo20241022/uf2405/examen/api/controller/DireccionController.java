@@ -2,6 +2,7 @@ package org.poo20241022.uf2405.examen.api.controller;
 
 import java.util.List;
 
+import org.poo20241022.uf2405.examen.entities.Departamento;
 import org.poo20241022.uf2405.examen.entities.Direccion;
 import org.poo20241022.uf2405.examen.exceptions.ServicioException;
 import org.poo20241022.uf2405.examen.ln.BuscadorDirecciones;
@@ -23,14 +24,14 @@ public class DireccionController {
 	@Autowired
 	BuscadorDirecciones servicio;
 	
-	
+	//LISTO
 	@GetMapping
 	public List<Direccion> list() throws ServicioException{
 		
 		return servicio.listDirecciones();
 		
 	}	
-	
+	//LISTO
 	@GetMapping(value="/{id}")
 	public Direccion find(@PathVariable Integer id) throws ServicioException {
 		
@@ -38,7 +39,7 @@ public class DireccionController {
 		
 	}
 	
-	
+	//LISTO
 	@PostMapping
 	public Direccion create(@RequestBody Direccion direccion) throws ServicioException {
 		
@@ -46,7 +47,7 @@ public class DireccionController {
 		return servicio.grabarDireccion(direccion);
 	}
 	
-	
+	//LISTO
 	@PutMapping
 	public Direccion save(@RequestBody Direccion direccion) throws ServicioException {
 		
@@ -62,19 +63,23 @@ public class DireccionController {
 		return ResponseEntity.ok("Se ha eliminado");
 		
 	}
-	
+	//LISTO
 	@GetMapping("/region/{nombre}")
 	public List<Direccion> listByRegion(@PathVariable("nombre")String nombreRegion) throws ServicioException{
 		return servicio.listDireccionesByNombreRegion(nombreRegion);
 		
 	}
-	
+	//LISTO
 	@GetMapping("/pais/{id}")
 	public List<Direccion> listByDireccion(@PathVariable("id") String codPais) throws ServicioException{
 		return servicio.listDireccionesByCodigoPais(codPais);
 		
 	}
 	
+	@GetMapping("/departamento/{id}")
+	public Direccion findDepartamento(@PathVariable("id") Integer idDepartamento) throws ServicioException{
+		return servicio.conseguirDireccionByDepartamentoId(idDepartamento);
+	}
 	
 	
 }

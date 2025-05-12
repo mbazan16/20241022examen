@@ -20,7 +20,7 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 	@Autowired
 	DireccionRepository repository;
 	
-	
+	//LISTO
 	@Override
 	public List<Direccion> listDirecciones() throws ServicioException{
 		log.info("[listDirecciones]");
@@ -38,7 +38,7 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 		
 	}
 	
-	
+	//LISTO
 	@Override
 	public Direccion conseguirDireccion(Integer idDireccion) throws ServicioException{
 		log.info("[conseguirDireccion]");
@@ -60,7 +60,7 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 		return direccion;
 		
 	}
-	
+	//LISTO
 	@Override
 	public Direccion grabarDireccion(Direccion Direccion) throws ServicioException{
 		log.info("[grabarDireccion]");
@@ -106,6 +106,41 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 			log.error("Exception", e);
 			throw new ServicioException(CodeError.ERROR_GENERAL,e);
 		}
+	}
+
+
+	public List<Direccion> listDireccionesByCodigoPais(String codPais) throws ServicioException{
+		log.info("[listDireccionesByNombreRegion]");
+		log.debug("[nombreRegion: "+codPais+"]");
+		
+			try {
+			return repository.findAllByCodigoPais(codPais);
+		}catch(Exception e) {
+			log.error("Exception", e);
+			throw new ServicioException(CodeError.ERROR_GENERAL,e);
+		}
+	}
+
+
+	public Direccion conseguirDireccionByDepartamentoId(Integer idDireccionDepartamento) throws ServicioException{
+		log.info("[conseguirDireccion]");
+		log.debug("[idDireccion: "+idDireccionDepartamento+"]");
+		
+		Direccion direccion;
+		
+		try {
+			Optional<Direccion> direccionOp= repository.findByIdDepartamento(idDireccionDepartamento);
+			if(!direccionOp.isPresent()) throw new ServicioException(CodeError.DIRECCION_NOT_FOUND);
+			direccion= direccionOp.get(); 
+		}catch(ServicioException se) {
+			log.error("ServicioException", se);
+			throw se;
+		}catch(Exception e) {
+			log.error("Exception", e);
+			throw new ServicioException(CodeError.ERROR_GENERAL,e);
+		}
+		return direccion;
+		
 	}
 
 
