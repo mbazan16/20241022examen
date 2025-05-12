@@ -109,10 +109,34 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 	}
 
 
-	
+	public Direccion conseguirDireccionByDepartamentoId(Integer idDepartamento) throws ServicioException {
+	    log.info("[conseguirDireccionByDepartamentoId]");
+	    log.debug("[idDepartamento: " + idDepartamento + "]");
+	    
+	    try {
+	        Optional<Direccion> direccionOp = repository.findByIdDepartamento(idDepartamento);
+	        if (!direccionOp.isPresent()) {
+	            throw new ServicioException(CodeError.DIRECCION_NOT_FOUND);
+	        }
+	        return direccionOp.get();
+	    } catch (ServicioException se) {
+	        log.error("ServicioException", se);
+	        throw se;
+	    } catch (Exception e) {
+	        log.error("Exception", e);
+	        throw new ServicioException(CodeError.ERROR_GENERAL, e);
+	    }
+	}
 
-	
-	
-	
-
+	public List<Direccion> listDireccionesByCodigoPais(String codigoPais) throws ServicioException {
+	    log.info("[listDireccionesByCodigoPais]");
+	    log.debug("[codigoPais: " + codigoPais + "]");
+	    
+	    try {
+	        return repository.findAllByCodigoPais(codigoPais);
+	    } catch (Exception e) {
+	        log.error("Exception", e);
+	        throw new ServicioException(CodeError.ERROR_GENERAL, e);
+	    }
+	}
 }

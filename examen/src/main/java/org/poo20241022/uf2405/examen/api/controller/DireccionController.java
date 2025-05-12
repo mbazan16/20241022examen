@@ -71,10 +71,13 @@ public class DireccionController {
 	
 	@GetMapping("/pais/{id}")
 	public List<Direccion> listByDireccion(@PathVariable("id") String codPais) throws ServicioException{
-		return servicio.listDireccionesByCodigoPais(codPais);
+		return (List<Direccion>) servicio.listDireccionesByCodigoPais(codPais);
 		
 	}
 	
-	
+	@GetMapping("/departamento/{id}")
+	public Direccion getDireccionByDepartamento(@PathVariable("id") Integer idDepartamento) throws ServicioException {
+	    return servicio.conseguirDireccionByDepartamentoId(idDepartamento);
+	}
 	
 }
