@@ -19,6 +19,10 @@ public interface BuscadorDirecciones {
 	
 	List<Direccion> listDireccionesByNombreRegion(String nombreRegion) throws ServicioException;
 	
+	List<Direccion> listDireccionesByCodigoPais(String codigoPais) throws ServicioException;
+	
+	Direccion conseguirDireccionByDepartamentoId(Integer departamentoID) throws ServicioException;
+ 	
 	
 
 }
