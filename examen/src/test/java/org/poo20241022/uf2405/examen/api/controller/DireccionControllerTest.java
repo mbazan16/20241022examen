@@ -17,12 +17,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.poo20241022.uf2405.examen.entities.Direccion;
+import org.poo20241022.uf2405.examen.exceptions.ServicioException;
 import org.poo20241022.uf2405.examen.ln.BuscadorDirecciones;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -133,4 +136,5 @@ class DireccionControllerTest {
                 .andExpect(jsonPath("$.ciudad").value("Madrid"));
     }
 
+	
 }

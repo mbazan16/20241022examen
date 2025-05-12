@@ -109,6 +109,22 @@ public class BuscadorDireccionesImpl implements BuscadorDirecciones{
 	}
 
 
+	@Override
+	public Direccion conseguirDireccionByDepartamentoId(Integer idDepartamneto) throws ServicioException {
+		
+		
+		return null;
+	}
+
+
+	@Override
+	public List<Direccion> listDireccionesByCodigoPais(String CodigoPais) throws ServicioException {
+		
+
+		return null;
+	}
+
+
 	
 
 	
