@@ -118,6 +118,7 @@ class BuscadorRegionesImplTest {
 		assertEquals("Mundo", result.getNombre());
 	}
 
+	
 	@Test
 	void testRegionByNombreRegionException() {
 		when(repository.findByNombre("Mundo")).thenReturn(Optional.empty());

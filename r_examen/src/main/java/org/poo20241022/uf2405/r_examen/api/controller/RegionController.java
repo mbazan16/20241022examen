@@ -1,7 +1,13 @@
 package org.poo20241022.uf2405.r_examen.api.controller;
 
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import org.poo20241022.uf2405.r_examen.entities.Region;
 import org.poo20241022.uf2405.r_examen.exceptions.ServicioException;
 import org.poo20241022.uf2405.r_examen.ln.BuscadorRegiones;
@@ -64,7 +70,14 @@ public class RegionController {
 	}
 	
 	
+	/*@GetMapping(value="/n/{nombre}")
 	
+	public Region find(@PathVariable String id) throws ServicioException {
+		
+		return servicio.conseguirRegionByCodigoPais(id);
+		
+	}
 	
+	*/
 	
 }

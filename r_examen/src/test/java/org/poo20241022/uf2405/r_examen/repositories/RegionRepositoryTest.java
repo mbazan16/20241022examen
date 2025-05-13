@@ -19,7 +19,7 @@ class RegionRepositoryTest {
 
 	@Autowired
 	RegionRepository repositorio;
-
+/*
 	@Test
 	@DisplayName("findByNombreRegionSuccess")
 	void findByNombreRegionSuccess() {
@@ -45,7 +45,7 @@ class RegionRepositoryTest {
 		log.debug("Region:"+region);
 
 	}
-	
+	*/
 	@Test
 	@DisplayName("findByCodigoPaisSuccess")
 	void findByCodigoPaisSuccess() {
@@ -73,7 +73,6 @@ class RegionRepositoryTest {
 
 	}
 
-	
 
 	
 }

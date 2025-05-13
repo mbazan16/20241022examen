@@ -9,6 +9,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface RegionRepository extends JpaRepository<Region,Integer> {
-	
+
+	Optional<Region> findByNombre(String string);
+
+
+	@Query ("select p.region from Pais p where p.id= :idPais")
+	Optional<Region> findByCodigoPais(@Param("idPais") String idPais);
 
 }
