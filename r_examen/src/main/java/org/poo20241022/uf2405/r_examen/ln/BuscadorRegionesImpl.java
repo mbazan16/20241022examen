@@ -97,49 +97,7 @@ public class BuscadorRegionesImpl implements BuscadorRegiones{
 
 	
 
-	@Override
-	public Region conseguirRegionByNombre(String nombre) throws ServicioException{
-		log.info("[conseguirRegionByNombre]");
-		log.debug("[nombre: "+nombre+"]");
-		
-		Region region;
-		
-		try {
-			Optional<Region> regionOp= repository.findByNombre(nombre);
-			if(!regionOp.isPresent()) throw new ServicioException(CodeError.REGION_NOT_FOUND);
-			region= regionOp.get(); 
-		}catch(ServicioException se) {
-			log.error("ServicioException", se);
-			throw se;
-		}catch(Exception e) {
-			log.error("Exception", e);
-			throw new ServicioException(CodeError.ERROR_GENERAL,e);
-		}
-		return region;
-		
-	}
 	
-	@Override
-	public Region conseguirRegionByCodigoPais(String codigo) throws ServicioException{
-		log.info("[conseguirRegionByCodPais]");
-		log.debug("[codigo: "+codigo+"]");
-		
-		Region region;
-		
-		try {
-			Optional<Region> regionOp= repository.findByCodigoPais(codigo);
-			if(!regionOp.isPresent()) throw new ServicioException(CodeError.REGION_NOT_FOUND);
-			region= regionOp.get(); 
-		}catch(ServicioException se) {
-			log.error("ServicioException", se);
-			throw se;
-		}catch(Exception e) {
-			log.error("Exception", e);
-			throw new ServicioException(CodeError.ERROR_GENERAL,e);
-		}
-		return region;
-		
-	}
 
 	
 	

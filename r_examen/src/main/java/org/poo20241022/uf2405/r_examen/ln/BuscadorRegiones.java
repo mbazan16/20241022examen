@@ -17,8 +17,6 @@ public interface BuscadorRegiones {
 
 	void eliminarRegion(Integer idRegion) throws ServicioException;
 	
-	Region conseguirRegionByNombre(String nombre) throws ServicioException;
-
-	Region conseguirRegionByCodigoPais(String codigo) throws ServicioException;
+	
 
 }

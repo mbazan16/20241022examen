@@ -63,11 +63,7 @@ public class RegionController {
 		
 	}
 	
-	@GetMapping("/n/{nombre}")
-	public Region listByRegion(@PathVariable("nombre")String nombreRegion) throws ServicioException{
-		return servicio.conseguirRegionByNombre(nombreRegion);
-		
-	}
+	
 	
 	@GetMapping("/pais/{id}")
 	public Region listByPais(@PathVariable("id") String codPais) throws ServicioException{
